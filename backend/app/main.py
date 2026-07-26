@@ -1,16 +1,20 @@
 from fastapi import FastAPI
 
+from app.config.settings import settings
+from app.router.complaint import router as complaint_router
+
 app = FastAPI(
-    title="AI Customer Complaint Management System",
-    description="AI-powered complaint management system for pharmaceutical manufacturing.",
-    version="1.0.0"
+    title=settings.APP_NAME,
+    # description="AI-powered complaint management system for pharmaceutical manufacturing.",
+    version=settings.APP_VERSION
 )
 
+app.include_router(complaint_router)
 
 @app.get("/")
 def root():
     return {
-        "message": "Welcome to AI Customer Complaint Management System"
+        "message": f"Welcome to {settings.APP_NAME}"
     }
 
 
